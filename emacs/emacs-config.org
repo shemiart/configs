@@ -1,0 +1,108 @@
+#+TITLE: config
+#+PROPERTY: header-args :tangle "~/.emacs.d/init.el"
+* straight.el
+#+begin_src elisp
+(defvar bootstrap-version)
+(let ((bootstrap-file
+      (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 5))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+        "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+        'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+#+end_src
+
+#+begin_src elisp
+(straight-use-package 'use-package)
+(setq straight-use-package-by-default t)
+#+end_src
+
+* org-mode
+#+begin_src elisp
+(use-package org :straight (:type built-in))
+#+end_src
+
+* org-roam
+#+begin_src elisp
+  (use-package org-roam
+  :ensure t
+  :init
+  (setq org-roam-v2-ack t)
+  :custom
+  (org-roam-directory "/opt/")
+  (org-roam-completion-everywhere t)
+  :bind (("C-c n l" . org-roam-buffer-toggle)
+         ("C-c n f" . org-roam-node-find)
+         ("C-c n i" . org-roam-node-insert)
+         :map org-mode-map
+         ("C-M-i"    . completion-at-point))
+  :config
+  (org-roam-setup))
+#+end_src
+* compat
+#+begin_src elisp
+
+#+end_src
+* cosmetic
+* coloring
+#+begin_src elisp
+;      (defun my-change-window-divider ()
+;      (let ((display-table (or buffer-display-table standard-display-table)))
+;	(set-display-table-slot display-table 5 ?│)
+;	(set-window-display-table (selected-window) display-table)))
+;
+;    (add-hook 'window-configuration-change-hook 'my-change-window-divider)
+  (set-face-background 'vertical-border "#00000000")
+  (set-face-foreground 'vertical-border (face-background 'vertical-border))
+  (set-face-foreground 'vertical-border "#222222")
+#+end_src
+
+#+begin_src elisp
+  (custom-theme-set-faces 'user
+			  `(org-level-1 ((t (:foreground "green"))))
+			  `(org-level-2 ((t (:foreground "green"))))
+			  `(org-level-3 ((t (:foreground "green"))))
+			  `(org-level-4 ((t (:foreground "green"))))
+			  `(org-level-5 ((t (:foreground "green"))))
+			  `(mode-line ((t (:foreground "green"))))
+			  `(mode-line ((t (:background "00000000"))))
+			  `(mode-line-inactive ((t (:background "#00000000"))))
+			  `(highlight-identation-face ((t (:background "#FFFFFF22"))))
+			  `(highlight-identation-current-column-face ((t (:background "#FFFFFF22"))))
+			  `(org-block ((t (:background "#00000000"))))
+			  `(org-block-begin-line ((t (:background "#00000000" :foreground "#999999"))))
+			  `(org-block-end-line ((t (:background "#00000000" :foreground "#999999"))))
+			  )
+#+end_src
+
+#+begin_src elisp
+  
+#+end_src
+* hide menu bar
+#+begin_src elisp
+  (menu-bar-mode -1)
+
+  (setq inhibit-startup-message t)
+
+  (scroll-bar-mode -1)
+
+  (tool-bar-mode -1)
+
+  (tooltip-mode -1)
+
+  (setq-default cursor-type 'hbar)
+
+  (global-visual-line-mode t)
+
+  (set-fringe-mode 0)
+
+#+end_src
+
+* org-tempo
+#+begin_src elisp
+  (add-to-list 'org-modules 'org-tempo t)
+#+end_src
