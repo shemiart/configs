@@ -1,39 +1,57 @@
 #+TITLE: config
 #+PROPERTY: header-args :tangle "~/.emacs.d/init.el"
-* straight.el
+
+* 220901-230500: straight.el
+:PROPERTIES:
+:ID:       e00113f4-ce13-49a1-ae88-ac97916d9f73
+:CUSTOM_ID: 220901-230500
+:CARD_VERSION: v1.0.0
+:END:
+
 #+begin_src elisp
-(defvar bootstrap-version)
-(let ((bootstrap-file
-      (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-      (bootstrap-version 5))
-  (unless (file-exists-p bootstrap-file)
-    (with-current-buffer
-        (url-retrieve-synchronously
-        "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
-        'silent 'inhibit-cookies)
-      (goto-char (point-max))
-      (eval-print-last-sexp)))
-  (load bootstrap-file nil 'nomessage))
+  (defvar bootstrap-version)
+  (let ((bootstrap-file
+	(expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+	(bootstrap-version 5))
+    (unless (file-exists-p bootstrap-file)
+      (with-current-buffer
+	  (url-retrieve-synchronously
+	  "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+	  'silent 'inhibit-cookies)
+	(goto-char (point-max))
+	(eval-print-last-sexp)))
+    (load bootstrap-file nil 'nomessage))
 #+end_src
 
 #+begin_src elisp
 (straight-use-package 'use-package)
 (setq straight-use-package-by-default t)
 #+end_src
+* 220901-230451: org-mode
+:PROPERTIES:
+:ID:       8d83696f-6c23-4a68-a636-fdd3149b20fc
+:CUSTOM_ID: 220901-230451
+:CARD_VERSION: v1.0.0
+:END:
 
-* org-mode
 #+begin_src elisp
 (use-package org :straight (:type built-in))
 #+end_src
 
-* org-roam
+* 220901-230441: org-roam
+:PROPERTIES:
+:ID:       16bc3192-bd5f-4ca1-b68e-cbbb9cd7605a
+:CUSTOM_ID: 220901-230441
+:CARD_VERSION: v1.0.0
+:END:
+
 #+begin_src elisp
   (use-package org-roam
   :ensure t
   :init
   (setq org-roam-v2-ack t)
   :custom
-  (org-roam-directory "/opt/")
+  (org-roam-directory "/home/shemiart")
   (org-roam-completion-everywhere t)
   :bind (("C-c n l" . org-roam-buffer-toggle)
          ("C-c n f" . org-roam-node-find)
@@ -43,12 +61,14 @@
   :config
   (org-roam-setup))
 #+end_src
-* compat
-#+begin_src elisp
 
-#+end_src
-* cosmetic
-* coloring
+* 220901-230418: coloring
+:PROPERTIES:
+:ID:       f35d0dc9-058f-4839-a800-e917ad460062
+:CUSTOM_ID: 220901-230418
+:CARD_VERSION: v1.0.0
+:END:
+
 #+begin_src elisp
 ;      (defun my-change-window-divider ()
 ;      (let ((display-table (or buffer-display-table standard-display-table)))
@@ -58,31 +78,39 @@
 ;    (add-hook 'window-configuration-change-hook 'my-change-window-divider)
   (set-face-background 'vertical-border "#00000000")
   (set-face-foreground 'vertical-border (face-background 'vertical-border))
-  (set-face-foreground 'vertical-border "#222222")
+  (set-face-foreground 'vertical-border "#555555")
 #+end_src
-
+ss
 #+begin_src elisp
   (custom-theme-set-faces 'user
-			  `(org-level-1 ((t (:foreground "green"))))
-			  `(org-level-2 ((t (:foreground "green"))))
-			  `(org-level-3 ((t (:foreground "green"))))
-			  `(org-level-4 ((t (:foreground "green"))))
-			  `(org-level-5 ((t (:foreground "green"))))
-			  `(mode-line ((t (:foreground "green"))))
+			  `(default ((t (:foreground "grey"))))
+			  `(org-level-1 ((t (:foreground "orange" :weight bold))))
+			  `(org-level-2 ((t (:foreground "orange"))))
+			  `(org-level-3 ((t (:foreground "orange"))))
+			  `(org-level-4 ((t (:foreground "orange"))))
+			  `(org-level-5 ((t (:foreground "orange"))))
+			  `(mode-line ((t (:foreground "orange"))))
 			  `(mode-line ((t (:background "00000000"))))
 			  `(mode-line-inactive ((t (:background "#00000000"))))
 			  `(highlight-identation-face ((t (:background "#FFFFFF22"))))
 			  `(highlight-identation-current-column-face ((t (:background "#FFFFFF22"))))
 			  `(org-block ((t (:background "#00000000"))))
-			  `(org-block-begin-line ((t (:background "#00000000" :foreground "#999999"))))
-			  `(org-block-end-line ((t (:background "#00000000" :foreground "#999999"))))
+			  `(org-block-begin-line ((t (:background "#00000000" :foreground "#222222"))))
+			  `(org-block-end-line ((t (:background "#00000000" :foreground "#222222"))))
 			  )
 #+end_src
 
 #+begin_src elisp
   
 #+end_src
-* hide menu bar
+
+* 220901-230317: styling GUI
+:PROPERTIES:
+:ID:       ebd32597-7f4c-4e4e-8840-5f15629ad6ef
+:CUSTOM_ID: 220901-230317
+:CARD_VERSION: v1.0.0
+:END:
+
 #+begin_src elisp
   (menu-bar-mode -1)
 
@@ -101,8 +129,30 @@
   (set-fringe-mode 0)
 
 #+end_src
+* 220901-230241: org-tempo
+:PROPERTIES:
+:ID:       48a584f9-35a0-4126-9e57-2bb74ef12e04
+:CUSTOM_ID: 220901-230241
+:CARD_VERSION: v1.0.0
+:END:
 
-* org-tempo
 #+begin_src elisp
   (add-to-list 'org-modules 'org-tempo t)
 #+end_src
+* 220901-230342: macro
+:PROPERTIES:
+:ID:       72dbd939-eed6-41b4-baa1-9a37b6f2c8de
+:CUSTOM_ID: 220901-230342
+:CARD_VERSION: v1.0.0
+:END:
+
+http://xahlee.info/emacs/emacs/emacs_macro_example.html
+
+#+begin_src elisp
+(fset 'macro-209
+   (kmacro-lambda-form [?\C-\[ ?\C-m ?\C-u ?\C-\[ ?! ?d ?a ?t ?e ?  ?\' ?+ ?% ?y ?% ?m ?% ?d ?- ?% ?H ?% ?M ?% ?S ?\' ?\C-m ?\C-e ?: ?\C-c ?\C-x ?p ?I ?D ?\C-m ?\C-u ?\C-\[ ?! ?u ?u ?i ?d ?g ?e ?n ?\C-m ?\C-m ?\C-c ?\C-x ?p ?C ?U ?S ?T ?O ?M ?_ ?D ?\C-? ?I ?D ?\C-m ?\C-u ?\C-\[ ?! ?d ?a ?t ?e ?  ?\' ?+ ?$ ?\C-? ?% ?y ?% ?m ?% ?d ?- ?% ?H ?% ?M ?% ?S ?\' ?\C-m ?\C-m ?\C-c ?\C-x ?p ?C ?A ?R ?D ?_ ?V ?E ?R ?S ?I ?O ?N ?\C-m ?v ?1 ?. ?0 ?. ?0 ?\C-m ? ] 0 "%d"))
+#+end_src
+* TODO org-transclusion
+* TODO company
+* TODO selectrum
+* TODO orderless
